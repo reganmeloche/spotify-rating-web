@@ -27,7 +27,7 @@ class Header extends Component {
             href="/auth" 
             className="btn btn-info justify-content-end"
           >
-            Login in with Spotify
+            Login in with Spotify 
           </a>
         );
         break;
