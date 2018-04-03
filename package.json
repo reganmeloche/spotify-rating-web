@@ -1,0 +1,29 @@
+{
+  "name": "spotify-rating-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reganmeloche/spotify-rating-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reganmeloche/spotify-rating-web/issues"
+  },
+  "homepage": "https://github.com/reganmeloche/spotify-rating-web#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-http-proxy": "^1.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
