@@ -28,9 +28,6 @@ export function fetchRatings() {
   const request = axios({
     method:'get',
     url:'/api/rating',
-    headers: {
-      Cookie: 'cookie1=test',
-    },
   });
   //const request = axios.get(`/api/rating`);
   return {
