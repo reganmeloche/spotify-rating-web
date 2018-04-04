@@ -14,9 +14,7 @@ class Albums extends Component {
   }
 
   callRatingFromAlbum(data) {
-    console.log('calling', data);
     this.props.ratingFromAlbum(data);
-    console.log('SET!');
     this.props.history.push('/rating/new');
   }
 

@@ -12,7 +12,6 @@ export function fetchAlbums() {
 }
 
 export function ratingFromAlbum(data) {
-  console.log('ACTION', data);
   return {
     type: RATING_FROM_ALBUM,
     payload: data,
