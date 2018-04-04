@@ -25,7 +25,12 @@ export function saveRating(ratingObj, callback) {
 }
 
 export function fetchRatings() {
-  const request = axios.get(`/api/rating`);
+  const request = axios({
+    method:'get',
+    url:'/api/rating',
+    withCredentials: true,
+  });
+  //const request = axios.get(`/api/rating`);
   return {
     type: FETCH_RATINGS,
     payload: request,
