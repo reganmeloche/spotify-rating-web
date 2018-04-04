@@ -5,7 +5,7 @@ export const LOGOUT = 'logout';
 
 export function fetchUser() {
   console.log('FETCHING USER...');
-  const request = axios.({
+  const request = axios({
     method: 'get',
     url: `/api/user`,
     withCredentials: true,
