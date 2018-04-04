@@ -24,7 +24,8 @@ class Header extends Component {
         break;
       case false:
         result = (
-          <Link to="/auth" className="btn btn-info">Login with spotify</Link>
+          <a href="/auth" className="btn btn-info">Login with Spotify</a>
+          // <Link to="/auth" className="btn btn-info">Login with spotify</Link>
         );
         break;
       default:
