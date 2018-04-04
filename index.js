@@ -6,17 +6,31 @@ const keys = require('./config/keys');
 
 const app = express();
 
+let myCookie;
+
 // Setup proxy
+app.use('/api/*', (req,res,next) => {
+  res.setHeader('Cookie', myCookie);
+  next();
+});
+
 app.use('/', proxy(keys.serverHost, {
   filter: (req) => {
     console.log('FILTER', Object.keys(req.headers), req.headers.cookie);
-    return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
+    return (req.path.indexOf('/auth') === 0) || (req.path.indexOf('/api') === 0);
   }
 }));
 // Other setup
 app.set('port', (process.env.PORT || 7107));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/cookie', (req, res) => {
+  console.log('headers', req.headers.cookie);
+  myCookie = req.headers.cookie;
+  res.redirect('/ratings');
+});
+
 
 // Prod setup
 if (process.env.NODE_ENV === 'production') {
