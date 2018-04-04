@@ -9,7 +9,7 @@ const app = express();
 // Setup proxy
 app.use('/', proxy(keys.serverHost, {
   filter: (req) => {
-    console.log('FILTERING', Object.keys(req), req.path, keys.serverHost);
+    console.log('FILTERING', req.path);
     return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
   }
 }));

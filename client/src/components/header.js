@@ -17,18 +17,14 @@ class Header extends Component {
 
   renderLogin() {
     let result;
+    console.log('LOGIN', this.props.user);
     switch (this.props.user) {
       case null:
         result = '';
         break;
       case false:
         result = (
-          <a
-            href="/auth" 
-            className="btn btn-info justify-content-end"
-          >
-            Login in with Spotify 
-          </a>
+          <Link to="/auth" className="btn btn-info">Login with spotify</Link>
         );
         break;
       default:
