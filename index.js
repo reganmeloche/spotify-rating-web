@@ -6,6 +6,13 @@ const keys = require('./config/keys');
 
 const app = express();
 
+// Setup proxy
+app.use('/', proxy(keys.serverHost, {
+  filter: (req) => {
+    console.log('FILTER', Object.keys(req.headers), req.headers.cookie);
+    return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
+  }
+}));
 // Other setup
 app.set('port', (process.env.PORT || 7107));
 app.use(bodyParser.json());
@@ -24,14 +31,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-// Setup proxy
-app.use('/', proxy(keys.serverHost, {
-  filter: (req) => {
-    console.log('FILTER', Object.keys(req.headers), req.headers.cookie);
-    return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
-  }
-}));
 
 // Start the server
 let server = app.listen(app.get('port'), function () {
