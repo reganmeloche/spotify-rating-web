@@ -28,6 +28,7 @@ export function fetchRatings() {
   const request = axios({
     method:'get',
     url:'/api/rating',
+    withCredentials: true,
   });
   //const request = axios.get(`/api/rating`);
   return {
