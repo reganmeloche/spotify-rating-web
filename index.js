@@ -15,11 +15,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/*', (req, res, next) => {
+  console.log('METHOD', req.method);
+  console.log('PATH', req.path);
+  console.log('BODY', req.body);
+  console.log('HEADERS', Object.keys(req.headers));
   if (myCookie) {
     req.headers = {
-      cookie: myCookie, //req.headers.cookie,
+      cookie: myCookie,
     };
   }
+  console.log('HEADERS', Object.keys(req.headers));
   next();
 });
 
