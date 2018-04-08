@@ -8,7 +8,6 @@ export default function(state = null, action) {
   switch (action.type) {
     case FETCH_USER:
       result = false;
-      console.log('FETCHED USER...', action.payload);
       if (action.payload && action.payload.data && action.payload.data.user) {
         result =  action.payload.data.user;
       }

@@ -12,14 +12,18 @@ class NewRating extends Component {
   }
 
   submitRating(values) {
-    values.faveSongs = values.faveSongs.filter(x => !!x);
+    if (values.faveSongs) {
+      values.faveSongs = values.faveSongs.filter(x => !!x);
+    } else {
+      values.faveSongs = [];
+    }
     this.props.saveRating(values, (err, res) => {
       if (err) {
         this.props.history.push('/ratings');
       } else {
         this.props.history.push(`/ratings`);
       }
-    });
+    }); 
   }
 
   render() {

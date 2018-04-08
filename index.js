@@ -15,18 +15,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/*', (req, res, next) => {
-  console.log('middleware cookie: ', req.headers.cookie);
+  console.log('METHOD', req.method);
+  console.log('PATH', req.path);
+  console.log('BODY', req.body);
+  console.log('HEADERS', Object.keys(req.headers));
   if (myCookie) {
-    console.log('my cookie: ', myCookie);
     req.headers = {
-      cookie: myCookie, //req.headers.cookie,
+      cookie: myCookie,
     };
   }
+  console.log('HEADERS', Object.keys(req.headers));
   next();
 });
 
 app.post('/cookie', (req, res) => {
-  console.log('cookie', req.headers.cookie);
   let result = false;
   if (req.headers.cookie) {
     myCookie = req.headers.cookie;
@@ -38,7 +40,6 @@ app.post('/cookie', (req, res) => {
 // Setup proxy
 app.use('/', proxy(keys.serverHost, {
   filter: (req) => {
-    console.log('porxy filter: ', req.headers.cookie);
     return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
   }
 }));
