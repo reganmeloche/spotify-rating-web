@@ -47,8 +47,8 @@ class Ratings extends Component {
               accessor: "artist"
             },
             {
-              Header: "Date Added",
-              accessor: "createDate",
+              Header: "Listen Date",
+              accessor: "listenDate",
               Cell: row => (
                 <div>
                   {moment(row.value).format('LL')}
