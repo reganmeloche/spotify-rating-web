@@ -19,10 +19,9 @@ app.use('/api/*', (req, res, next) => {
   console.log('PATH', req.path);
   console.log('BODY', req.body);
   console.log('HEADERS', Object.keys(req.headers));
+  // Not good - need to set only cookie,
   if (myCookie) {
-    req.headers = {
-      cookie: myCookie,
-    };
+    req.headers.cookie = myCookie;
   }
   console.log('HEADERS', Object.keys(req.headers));
   next();
@@ -35,6 +34,11 @@ app.post('/cookie', (req, res) => {
     result = true;
   }
   res.status(200).json({ set: result });
+});
+
+app.delete('/cookie', (req, res) => {
+  myCookie = null;
+  res.status(200).json({ set: true });
 });
 
 // Setup proxy
