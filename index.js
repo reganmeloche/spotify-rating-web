@@ -1,17 +1,13 @@
+'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const proxy = require('express-http-proxy');
 
 const keys = require('./config/keys');
+let myCookie;
 
 const app = express();
-
-// Setup proxy
-app.use('/', proxy(keys.serverHost, {
-  filter: (req) => {
-    return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
-  }
-}));
 
 // Other setup
 app.set('port', (process.env.PORT || 7107));
@@ -31,6 +27,34 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+
+app.use('/api/*', (req, res, next) => {
+  console.log('middleware cookie: ', req.headers.cookie);
+  if (myCookie) {
+    console.log('my cookie: ', myCookie);
+    res.headers = {
+      cookie: myCookie, //req.headers.cookie,
+    };
+  }
+  next();
+});
+
+app.post('/cookie', (req, res) => {
+  console.log('cookie', req.headers.cookie);
+  let result = false;
+  if (req.headers.cookie) {
+    myCookie = req.headers.cookie;
+    result = true;
+  }
+  res.status(200).json({ set: result });
+});
+
+// Setup proxy
+app.use('/', proxy(keys.serverHost, {
+  filter: (req) => {
+    return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
+  }
+}));
 
 // Start the server
 let server = app.listen(app.get('port'), function () {
