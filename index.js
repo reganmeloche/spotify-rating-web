@@ -18,7 +18,7 @@ app.use('/api/*', (req, res, next) => {
   console.log('middleware cookie: ', req.headers.cookie);
   if (myCookie) {
     console.log('my cookie: ', myCookie);
-    res.headers = {
+    req.headers = {
       cookie: myCookie, //req.headers.cookie,
     };
   }
@@ -38,6 +38,7 @@ app.post('/cookie', (req, res) => {
 // Setup proxy
 app.use('/', proxy(keys.serverHost, {
   filter: (req) => {
+    console.log('porxy filter: ', req.headers.cookie);
     return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
   }
 }));
