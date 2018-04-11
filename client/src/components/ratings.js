@@ -17,8 +17,9 @@ class Ratings extends Component {
   }
 
   callDeleteRating(ratingId) {
-    this.props.deleteRating(ratingId);
-    this.props.fetchRatings();
+    this.props.deleteRating(ratingId, () => {
+      this.props.fetchRatings();
+    });
   }
 
   componentDidMount() {
@@ -26,7 +27,9 @@ class Ratings extends Component {
   }
 
   render() {
-    if (!this.props.user) {
+    if (this.props.user === null) {
+      return null;
+    } else if (this.props.user === false) {
       return (<SignIn/>);
     }
     

@@ -23,9 +23,12 @@ class Albums extends Component {
   }
 
   render() {
-    if (!this.props.user) {
+    if (this.props.user === null) {
+      return null;
+    } else if (this.props.user === false) {
       return (<SignIn/>);
     }
+    
     let result = <div>loading albums...</div>
     if (this.props.albums) {
       result = (

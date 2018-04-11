@@ -27,7 +27,9 @@ class NewRating extends Component {
   }
 
   render() {
-    if (!this.props.user) {
+    if (this.props.user === null) {
+      return null;
+    } else if (this.props.user === false) {
       return (<SignIn/>);
     }
 

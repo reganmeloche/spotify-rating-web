@@ -36,8 +36,9 @@ export function fetchRatings() {
   };
 }
 
-export function deleteRating(ratingId) {
-  const request = axios.delete(`/api/rating/${ratingId}`);
+export async function deleteRating(ratingId, callback) {
+  const request = await axios.delete(`/api/rating/${ratingId}`);
+  callback();
   return {
     type: DELETE_RATING,
     payload: request,

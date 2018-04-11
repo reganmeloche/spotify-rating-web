@@ -3,50 +3,46 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const proxy = require('express-http-proxy');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
 
 const keys = require('./config/keys');
-let myCookie;
 
 const app = express();
+
+// Session setup
+app.use(cookieSession({
+  maxAge: keys.sessionHours * 60 * 60 * 1000,
+  keys: [keys.cookieKey],
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Ensure authentication and attach user
+app.use('/api/*', (req, res, next) => {
+  if (req.user) {
+    req.headers.userid = req.user.userId;
+    next();
+  } else {
+    res.redirect('/');
+  }
+})
+
+// Setup proxy
+app.use('/', proxy(keys.serverHost, {
+  filter: (req) => {
+    return (req.path.indexOf('/api') === 0);
+  }
+}));
 
 // Other setup
 app.set('port', (process.env.PORT || 7107));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/*', (req, res, next) => {
-  console.log('METHOD', req.method);
-  console.log('PATH', req.path);
-  console.log('BODY', req.body);
-  console.log('HEADERS', Object.keys(req.headers));
-  // Not good - need to set only cookie,
-  if (myCookie) {
-    req.headers.cookie = myCookie;
-  }
-  console.log('HEADERS', Object.keys(req.headers));
-  next();
-});
-
-app.post('/cookie', (req, res) => {
-  let result = false;
-  if (req.headers.cookie) {
-    myCookie = req.headers.cookie;
-    result = true;
-  }
-  res.status(200).json({ set: result });
-});
-
-app.delete('/cookie', (req, res) => {
-  myCookie = null;
-  res.status(200).json({ set: true });
-});
-
-// Setup proxy
-app.use('/', proxy(keys.serverHost, {
-  filter: (req) => {
-    return (req.path.indexOf('/auth') === 0) ||(req.path.indexOf('/api') === 0);
-  }
-}));
+// Routes
+require('./src/passport');
+require('./src/authHandlers')(app);
 
 // Prod setup
 if (process.env.NODE_ENV === 'production') {

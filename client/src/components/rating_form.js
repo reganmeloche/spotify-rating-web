@@ -7,8 +7,6 @@ import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-const MAX_COUNT = 3000;
-
 class RatingForm extends Component {
   constructor(props) {
     super(props);
@@ -113,7 +111,7 @@ class RatingForm extends Component {
   }
 
   renderTextField(props) {
-    const { input, className, maxLength, meta: {touched, error } } = props;
+    const { input, meta: {touched, error } } = props;
     return (
       <div>
         <input {...input} className='form-control' maxLength={100}/>
@@ -125,7 +123,7 @@ class RatingForm extends Component {
   }
 
   render() {
-    const { pristine, submitSucceeded, handleSubmit, dispatch } = this.props
+    const { pristine, submitSucceeded, handleSubmit } = this.props
 
     return (
       <div>

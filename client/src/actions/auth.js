@@ -6,8 +6,7 @@ export const LOGOUT = 'logout';
 export function fetchUser() {
   const request = axios({
     method: 'get',
-    url: `/api/user`,
-    withCredentials: true,
+    url: `/auth/user`,
   });
   return {
     type: FETCH_USER,
@@ -16,7 +15,7 @@ export function fetchUser() {
 }
 
 export async function logout(callback) {
-  const request = await axios.get(`api/logout`);
+  const request = await axios.get(`auth/logout`);
   callback();
   return {
     type: LOGOUT,

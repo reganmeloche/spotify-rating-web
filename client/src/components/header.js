@@ -32,7 +32,7 @@ class Header extends Component {
           <span>    
             Logged in as: {this.props.user.email}
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#" className="btn btn-info" onClick={this.logout}>Logout</a>
+            <button className="btn btn-info" onClick={this.logout}>Logout</button>
           </span>
         );
     }

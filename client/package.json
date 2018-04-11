@@ -6,10 +6,7 @@
     "/api/*": {
       "target": "http://localhost:7107"
     },
-    "/auth": {
-      "target": "http://localhost:7107"
-    },
-    "/cookie": {
+    "/auth/*": {
       "target": "http://localhost:7107"
     }
   },

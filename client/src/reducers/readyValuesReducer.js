@@ -16,9 +16,9 @@ export default function(state = null, action) {
         artist: data.artists[0],
         faveSongs,
       };
-    
-    default:
       break;
+    default:
+      // do nothing
   }
   return result;
 }
