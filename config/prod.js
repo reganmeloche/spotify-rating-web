@@ -4,4 +4,5 @@ module.exports = {
   clientSecret: process.env.CLIENT_SECRET,
   cookieKey: process.env.COOKIE_KEY,
   sessionHours: process.env.SESSION_HOURS,
+  host: process.env.HOST,
 }
