@@ -12,6 +12,7 @@ class NewRating extends Component {
   }
 
   submitRating(values) {
+    values.rating *= 2;
     if (values.faveSongs) {
       values.faveSongs = values.faveSongs.filter(x => !!x);
     } else {

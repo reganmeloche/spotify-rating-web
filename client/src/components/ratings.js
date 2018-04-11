@@ -42,15 +42,15 @@ class Ratings extends Component {
             data={this.props.ratings}
             columns={[
             {
-              Header: "Album",
+              Header: <div class="my-left-align">Album</div>,
               accessor: "albumName"
             },
             {
-              Header: "Artist",
+              Header: <div class="my-left-align">Artist</div>,
               accessor: "artist"
             },
             {
-              Header: "Listen Date",
+              Header: <div class="my-left-align">Listen Date</div>,
               accessor: "listenDate",
               Cell: row => (
                 <div>
@@ -62,11 +62,13 @@ class Ratings extends Component {
               Header: "Rating",
               accessor: "rating",
               Cell: row => (
-                <div>
+                <div class="my-center-align">
                   <Rating
                     readonly={true}
-                    initialRating={row.value}
-                    stop={10}
+                    initialRating={row.value/2}
+                    emptySymbol="fa fa-star-o fa-2x"
+                    fullSymbol="fa fa-star fa-2x"
+                    fractions={2}
                   />
                 </div>
               )
@@ -93,7 +95,7 @@ class Ratings extends Component {
             {
               Header: "Delete",
               Cell: (x) => (
-                <span>
+                <div class="my-center-align">
                   <button 
                     type="button" 
                     className="btn btn-danger"
@@ -101,7 +103,7 @@ class Ratings extends Component {
                   >
                     Delete
                   </button>
-                </span>
+                </div>
               )
             }
           ]}

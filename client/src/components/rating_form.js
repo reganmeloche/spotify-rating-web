@@ -24,7 +24,7 @@ class RatingForm extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(change('ratingForm', 'rating', 5));
+    this.props.dispatch(change('ratingForm', 'rating', 3));
     this.props.dispatch(change('ratingForm', 'listenDate', moment()));
   }
 
@@ -62,9 +62,11 @@ class RatingForm extends Component {
     return (
       <div>
         <Rating 
-          stop={10}
+          emptySymbol="fa fa-star-o fa-2x"
+          fullSymbol="fa fa-star fa-2x"
+          fractions={2}
           onChange={this.handleRatingChange}
-          initialRating={5}
+          initialRating={3}
         />
       </div>
     );
