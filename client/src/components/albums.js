@@ -47,7 +47,12 @@ class Albums extends Component {
             },
             {
               Header: <div className="my-left-align">Artist(s)</div>,
-              accessor: "artists"
+              accessor: "artists",
+              Cell: row => (
+                <div>
+                  {row.value.join(', ')}
+                </div>
+              )
             },
             {
               Header: <div className="my-left-align">Add Date</div>,
