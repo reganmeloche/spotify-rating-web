@@ -24,13 +24,16 @@ class Header extends Component {
       case false:
         result = (
           <a href="/auth" className="btn btn-info">Login with Spotify</a>
-          // <Link to="/auth" className="btn btn-info">Login with spotify</Link>
         );
         break;
       default:
+        let loggedIn = 'Logged in';
+        if (this.props.user.email){
+          loggedIn = `Logged in as ${this.props.user.email}`;
+        }
         result = (
           <span>    
-            Logged in as: {this.props.user.email}
+            {loggedIn}
             &nbsp;&nbsp;&nbsp;&nbsp;
             <button className="btn btn-info" onClick={this.logout}>Logout</button>
           </span>

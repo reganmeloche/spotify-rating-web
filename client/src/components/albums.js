@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { fetchAlbums, ratingFromAlbum } from '../actions/albums';
 
 import SignIn from './sign_in.js';
@@ -37,25 +38,30 @@ class Albums extends Component {
             data={this.props.albums}
             columns={[
             {
-              Header: "Album",
+              Header: <div className="my-left-align">Album</div>,
               accessor: "name"
             },
             {
-              Header: "Label",
+              Header: <div className="my-left-align">Label</div>,
               accessor: "label"
             },
             {
-              Header: "Artist",
+              Header: <div className="my-left-align">Artist(s)</div>,
               accessor: "artists"
             },
             {
-              Header: "Date",
-              accessor: "addedAt"
+              Header: <div className="my-left-align">Add Date</div>,
+              accessor: "addedAt",
+              Cell: row => (
+                <div>
+                  {moment(row.value).format('LL')}
+                </div>
+              )
             },
             {
               Header: "New Rating",
               Cell: (x) => (
-                <span>
+                <div className="my-center-align">
                   <button 
                     type="button" 
                     className="btn btn-success"
@@ -63,7 +69,7 @@ class Albums extends Component {
                   >
                     Add Rating
                   </button>
-                </span>
+                </div>
               )
             }
           ]}
